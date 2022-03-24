@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+int dx[9] = {0,2,1,-2,-2,-2,-1,1};
+int dy[9] = {0,1,2,2,1,-1,-2,-2,-1};
+int a[9][9],d = 1,n,x,y;
+void xuat(){
+    for(int i = 1; i <= n; i++){
+        for(int j = 1; j <= n;j++)
+            cout << a[i][j] << ' ';
+        cout << endl;
+    }
+}
+void dfs(int b, int c){
+    int u,v;
+    for(int j = 1; j <= 8; j++){
+        u = b+dx[j];
+        v = c+dy[j];
+        if (u > 0 && u <= n && v > 0 && v <= n && a[u][v] == 0){
+            d++;
+            a[u][v] = d;
+            if (d == n*n){
+                xuat();
+                exit(0);
+            }else
+                dfs(u,v);
+            d--;
+            a[u][v] = 0;    
+        }
+    }
+} 
+int main(){
+    cin >> n;
+    cin >> x >> y;
+    a[x][y] = 1;
+    dfs(x,y);
+    return 0;
+}
