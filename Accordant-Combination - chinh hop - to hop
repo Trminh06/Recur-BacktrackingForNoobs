@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+long n,k,a[100];
+bool kt[100];
+void out(long n){
+    for(long i = 1; i <= n; i++)
+        cout << a[i];
+    cout << "\n";
+}
+void chkl(long i){
+    //liet ke so cach tao day co do dai K bang K phan tu
+    for(long j = 0; j < n; j++){
+        if (!kt[j]){
+            a[i] = j;
+            kt[j] = true;
+            if (i == k)
+                out(k);
+            else
+                chkl(i+1);
+            kt[j] = false;
+        }
+    }
+}
+void chl(long i){
+    // liet ke so cach tao day co do dai N bang K phan tu
+    for(long j = 0; j < k; j++){
+        a[i] = j;
+        if (i == n)
+            out(n);
+        else
+            chl(i+1);
+    }
+}
+void tohop(long i){
+    a[0] = 0;
+    for(long j = a[i-1]+1; j <= n-k+i; j++){
+        if (!kt[j]){
+            kt[j] = true;
+            a[i] = j;
+            if (i == k)
+                out(k);
+            else
+                tohop(i+1);
+            kt[j] = false;
+        }
+    }
+}
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> n >> k;
+    chkl(1);
+    chl(1);
+    tohop(1);
+    return 0;
+}
